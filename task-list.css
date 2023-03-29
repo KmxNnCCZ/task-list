@@ -1,0 +1,128 @@
+/* 共通部分 */
+html {
+  font-size: 100%;
+}
+
+/* 入力要素をまとめて初期化 */
+button, input, select, textarea {
+  padding: 3px;
+  border: 2px solid #888;
+  font-family : inherit;
+  font-size   : 100%;
+}
+
+button{
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+}
+
+button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+body {
+  max-width: 1100px;
+  width: 80%;
+  margin: 0 auto;
+  background-color: #ded;
+  font-family : sans-serif; 
+}
+
+li{
+  list-style: none;
+}
+
+/* ヘッダー */
+#header {
+  text-align: center;
+}
+
+
+#post-form {
+  margin: 0 auto;
+  text-align: center;
+}
+
+#input-area {
+  width: 80%;
+  margin: 0 auto;
+}
+
+#input-area button {
+  background-color: #44f;
+  padding: 3px 20px;
+  font-size: 1.2em;
+}
+
+
+#date {
+  display: flex;
+  justify-content: left;
+  gap: 3px;
+  margin-bottom: 5px;
+}
+
+#text-area input{
+  width: 100%;
+  height: 30px;
+  margin-bottom: 5px;
+  line-height: 1;
+}
+
+#text-area textarea {
+  width: 100%;
+  height: 150px;
+}
+
+
+/* タスクリスト */
+#task-list {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#task-list table {
+  /* table-layout: fixed; */
+  width: 100%;
+}
+
+#task-list th {
+  padding: 4px;
+  text-align: left;
+}
+
+#task-list td {
+  padding: 6px;
+  text-align: left;
+}
+
+#task-list .item {
+  background-color: #277;
+  color: white;
+  text-align: center;
+}
+
+#mytable tr button {
+  display: block;  
+  margin: 0 auto;  
+  background-color: #444;
+}
+
+.month {
+  width: 15%;
+}
+.status {
+  width: 10%;
+}
+.title {
+  width: 25%;
+}
+.detail {
+  width: 35%;
+}
+.delbutton {
+  width: 15%;
+}
+

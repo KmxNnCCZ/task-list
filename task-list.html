@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="task-list.css">
+  <title>タスクリスト</title>
+</head>
+<body>
+  <header id="header">
+    <h1 id="page-title">期末面談用やったことリスト</h1>
+    <p>実施月、進捗、タイトル、タスク概要を入力してください</p>
+  </header>
+
+  <div class="container">
+    <div id="post-form">
+      <div id="input-area">
+        <div id="date">
+          <input type="date" id="task-month">
+          <select name="progress" id="task-status">
+            <option value="済">済</option>
+            <option value="進行中">進行中</option>
+            <option value="未着手">未着手</option>
+          </select>
+          <button type="submit" id="submit" onclick="post()">登録</button>
+        </div>
+        <div id="text-area">
+          <input type="text" name="title" placeholder="タイトル" id="task-title">
+          <br>
+          <textarea name="textarea" placeholder="タスクの概要" id="task-detail"></textarea>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="task-list">
+      <table id="mytable">
+        <tr>
+          <th class="item month">実施月</th>
+          <th class="item status">進捗</th>
+          <th class="item title">タイトル</th>
+          <th class="item detail">タスク概要</th>
+          <th class="item delbutton">削除</th>
+        </tr>
+      </table>
+    </div>
+  </div><!-- container -->
+  <script src="task-list.js"></script>
+</body>
+</html>
