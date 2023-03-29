@@ -1,9 +1,5 @@
 'use strict'
 
-// タスクを管理する配列を準備する
-// {month: 実施月, status: 進捗, title: タイトル, detail: 概要}
-const tasks = [];
-
 const taskMonth = document.getElementById('task-month');
 const taskStatus = document.getElementById('task-status');
 const taskTitle = document.getElementById('task-title');
@@ -19,7 +15,13 @@ let day = ("0" + currentDate.getDate()).slice(-2);
 let formattedDate = year + "-" + month + "-" + day;
 taskMonth.value = formattedDate;
 
+window.onload = () => {
+  console.log('ページが読み込まれました');
+  displayTaskList();
+}
+
 function post () {  
+  // {month: 実施月, status: 進捗, title: タイトル, detail: 概要}
   const task = {
     month: taskMonth.value,
     status: taskStatus.value,
@@ -29,8 +31,20 @@ function post () {
   addTask(task);
 }
 
+/**
+ * 登録ボタンを押したときに追加する関数
+ * @param {Object} task 
+ */
 function addTask(task) {
-  tasks.push(task);
+  // まず既に登録済みのLocalStrageがあるか確認
+  let tmpTasks = getLocalStrage('stragedTasks');
+  if(tmpTasks) {
+    tmpTasks.push(task);
+  }else {
+    tmpTasks = [task];
+  }
+  // 新たにLocalStrageに保存
+  setLocalStrage('stragedTasks', tmpTasks)
 
   taskMonth.value = formattedDate;
   taskStatus.value = "済";
@@ -41,9 +55,27 @@ function addTask(task) {
   displayTaskList();
 }
 
+/**
+ * 実際にタスクをディスプレイに表示する関数
+ */
 function displayTaskList() {
-    table.innerHTML = '<tr><th class="item">実施月</th><th class="item">進捗</th><th class="item">タイトル</th><th class="item">タスク概要</th><th class="item">削除</th></tr>';
+  table.innerHTML = '<tr><th class="item">実施月</th><th class="item">進捗</th><th class="item">タイトル</th><th class="item">タスク概要</th><th class="item">削除</th></tr>';
+  // localStrageから読み取ったJSONオブジェクトをパースする
+  const tasks = getLocalStrage('stragedTasks');
+  if (tasks) {
+    console.log(tasks);
+    addTable(tasks);
+  } else {
+    return;
+  }
+}
 
+/**
+ * htmlのtableタグにtasksの要素を一つずつappendchildしていく関数
+ * @param {Object} tasks 
+ */
+function addTable (tasks) {
+  console.log(tasks);
   for(let i = 0; i< tasks.length; i++) {
     const taskTr = document.createElement('tr');
     
@@ -84,8 +116,35 @@ function displayTaskList() {
   }
 }
 
+/**
+ * ローカルストレージを取得する関数
+ * @param {Stirng} key  ローカルストレージ名
+ * @returns ローカルストレージの値のオブジェクト (ない場合はnullが返る)
+ */
+function getLocalStrage(key) {
+  const getData = localStorage.getItem(key);
+  console.log('getLocalStrage', getData);
+  if(getData) {
+    return JSON.parse(getData);
+  }
+  return null;
+}
+
+/**
+ * ローカルストレージに保存する関数
+ * @param {String} key: ローカルストレージ名
+ * @param {Object} value: ローカルストレージの値
+ */
+function setLocalStrage(key, value) {
+  const jsonValue = JSON.stringify(value);
+  localStorage.setItem(key, jsonValue);
+}
+
 
 function deleteTask(deleteIndex) {
+  const tasks = getLocalStrage('stragedTasks');
+  console.log('deleteTask', tasks);
   tasks.splice(deleteIndex, 1);
+  setLocalStrage('stragedTasks', tasks)
   displayTaskList();
 }
